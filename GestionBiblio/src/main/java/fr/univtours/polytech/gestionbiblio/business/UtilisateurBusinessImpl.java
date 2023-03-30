@@ -20,7 +20,7 @@ public class UtilisateurBusinessImpl implements UtilisateurBusiness {
 	}
 
 	@Override
-	public UtilisateurBean getUtilisateur(Integer id) {
+	public UtilisateurBean getUtilisateur(String id) {
 		return dao.getUtilisateur(id);
 	}
 

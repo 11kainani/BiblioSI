@@ -70,6 +70,8 @@ public class LivreDAOImplJPA implements LivreDAO {
 			livreToUpdate.setLibre(livre.isLibre());
 			livreToUpdate.setGenre(livre.getGenre());
 			livreToUpdate.setUtilisateur(livre.getUtilisateur());
+			livreToUpdate.setDateEmprunt(livre.getDateEmprunt());
+			livreToUpdate.setDateFinEmprunt(livre.getDateFinEmprunt());
 			em.merge(livreToUpdate);
 			tx.commit();
 		} catch (Exception e) {

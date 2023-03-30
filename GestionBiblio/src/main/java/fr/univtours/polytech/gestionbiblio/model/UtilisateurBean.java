@@ -20,6 +20,7 @@ public class UtilisateurBean implements Serializable {
 	@Id
 	private String identifiant;
 	private String nom;
+	private String prenom;
 	private Integer age;
 	private String motDePasse;
 	private boolean admin;
@@ -73,6 +74,14 @@ public class UtilisateurBean implements Serializable {
 
 	public void setListLivre(List<LivreBean> listLivres) {
 		this.listLivres = listLivres;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
 	}
 
 }

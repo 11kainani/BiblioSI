@@ -8,7 +8,7 @@ public interface UtilisateurDAO {
 
 	public List<UtilisateurBean> getUtilisateurList();
 
-	public UtilisateurBean getUtilisateur(Integer id);
+	public UtilisateurBean getUtilisateur(String id);
 
 	public void insertUtilisateur(UtilisateurBean utilisateur);
 
