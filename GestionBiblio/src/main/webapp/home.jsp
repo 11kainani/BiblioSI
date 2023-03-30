@@ -20,7 +20,38 @@
 		<c:otherwise>
 			<p>Bienvenue ${sessionScope.UTILISATEUR.nom}
 				${sessionScope.UTILISATEUR.prenom} !</p>
-			<p>Nombre de livres empruntés : WIP</p>
+			<p>Nombre de livres empruntés :</p>
+			<c:choose>
+				<c:when test="${not empty sessionScope.UTILISATEUR.listLivres}">
+					<table>
+						<thead>
+							<tr>
+								<th>Titre</th>
+								<th>Auteur</th>
+								<th>Genre</th>
+								<th>Date emprunt</th>
+								<th>Date fin emprunt</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${sessionScope.UTILISATEUR.listLivres}"
+								var="book">
+								<tr>
+
+									<td>${book.titre}</td>
+									<td>${book.auteur}</td>
+									<td>${book.genre.nom}</td>
+									<td>${book.dateEmprunt}</td>
+									<td>${book.dateFinEmprunt}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</c:when>
+				<c:otherwise>
+					<p>Auncun livre emprunté</p>
+				</c:otherwise>
+			</c:choose>
 			<%-- <c:out value="${fn:length(sessionScope.UTILISATEUR.listLivres)}"/> --%>
 			<form action="logout" method="post">
 				<input type="submit" value="Se déconnecter">
@@ -28,10 +59,10 @@
 		</c:otherwise>
 	</c:choose>
 	<form action="home" method="get">
-		<label for="author">Auteur :</label> <input type="text" id="author"
-			name="author" value=""> <br> <br> <label
-			for="title">Titre:</label> <input type="text" id="title" name="title"
-			value="${title != null ? title : ''}"> <br> <br> <label
+		<label for="title">Titre:</label> <input type="text" id="title"
+			name="title" value="${title != null ? title : ''}"> <br>
+		<br> <label for="author">Auteur :</label> <input type="text"
+			id="author" name="author" value=""> <br> <br> <label
 			for="genre">Genre :</label> <select id="genre" name="genre">
 			<option value="">Tous</option>
 			<%-- Remplir dynamiquement la liste des genres avec JPA --%>
@@ -63,7 +94,7 @@
 						<td>${book.genre.nom}</td>
 						<td>${book.libre}</td>
 						<td><c:if test="${isConnected}">
-								<form action="reservation" method="post">
+								<form action="home" method="post">
 									<input type="hidden" name="bookId" value="${book.id}" /> <input
 										type="submit" value="Réserver" />
 								</form>

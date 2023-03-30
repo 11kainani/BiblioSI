@@ -1,7 +1,9 @@
 package fr.univtours.polytech.gestionbiblio.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,6 +28,13 @@ public class LivreBean implements Serializable {
 	private String auteur = "";
 	private String titre = "";
 	private boolean libre;
+
+	@Column(columnDefinition = "DATE")
+	private LocalDate dateEmprunt;
+	
+	@Column(columnDefinition = "DATE")
+	private LocalDate dateFinEmprunt;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "IdGenre")
 	private GenreBean genre;
@@ -80,6 +89,22 @@ public class LivreBean implements Serializable {
 
 	public void setLibre(boolean libre) {
 		this.libre = libre;
+	}
+
+	public LocalDate getDateEmprunt() {
+		return dateEmprunt;
+	}
+
+	public void setDateEmprunt(LocalDate dateEmprunt) {
+		this.dateEmprunt = dateEmprunt;
+	}
+
+	public LocalDate getDateFinEmprunt() {
+		return dateFinEmprunt;
+	}
+
+	public void setDateFinEmprunt(LocalDate dateFinEmprunt) {
+		this.dateFinEmprunt = dateFinEmprunt;
 	}
 
 }
