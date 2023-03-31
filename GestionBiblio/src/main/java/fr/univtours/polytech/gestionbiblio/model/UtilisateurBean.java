@@ -60,7 +60,7 @@ public class UtilisateurBean implements Serializable {
 		this.motDePasse = motDePasse;
 	}
 
-	public boolean isAdmin() {
+	public boolean getAdmin() {
 		return admin;
 	}
 
