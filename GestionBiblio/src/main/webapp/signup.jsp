@@ -19,7 +19,7 @@
         <label for="password">Age :</label>
         <input type="number" id="age" name="age" required><br><br>
         <fieldset>
-    <legend>Choose your monster's features:</legend>
+    <legend>Are you an admin ?:</legend>
         <label>
   <input type="radio" name="option" value="Non">
   Non
