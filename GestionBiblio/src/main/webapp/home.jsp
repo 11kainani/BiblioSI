@@ -60,29 +60,7 @@
 			</form>
 		</c:otherwise>
 	</c:choose>
-        <c:if test="${sessionScope.UTILISATEUR.admin}">
-        <c:forEach items="${requestScope.LIST_EMPRUNT}" var="livre">
-            <tr>
 
-                <td>${livre.titre}</td>
-                <td>${livre.auteur}</td>
-                <td>${livre.genre.nom}</td>
-                <td>${livre.dateEmprunt}</td>
-                
-                <td>${livre.libre}</td>
-                <td><c:if test="${isConnected}">
-                        <form action="liberer" method="post">
-                            <input type="hidden" name="bookId" value="${livre.id}" /> <input
-                                type="submit" value="Liberer" />
-                        </form>
-
-                    </c:if></td>
-
-            </tr>
-            <br>
-        </c:forEach>
-
-    </c:if>
 	<form action="home" method="get">
 		<label for="title">Titre:</label> <input type="text" id="title"
 			name="title" value="${title != null ? title : ''}"> <br>
@@ -119,11 +97,24 @@
 						<td>${book.genre.nom}</td>
 						<td>${book.libre}</td>
 						<td><c:if test="${isConnected}">
-								<form action="home" method="post">
-									<input type="hidden" name="bookId" value="${book.id}" /> <input
-										type="submit" value="Réserver" />
-								</form>
+								<c:choose>
+									<c:when test="${book.libre}">
+										<form action="home" method="post">
+											<input type="hidden" name="reserverBookId" value="${book.id}" />
+											<input type="submit" value="Réserver" />
+										</form>
+									</c:when>
+									<c:otherwise>
+										<c:if test="${sessionScope.UTILISATEUR.admin}">
 
+											<form action="liberer" method="post">
+												<input type="hidden" name="rendreBookId" value="${book.id}" />
+												<input type="submit" value="Rendre" />
+											</form>
+
+										</c:if>
+									</c:otherwise>
+								</c:choose>
 							</c:if></td>
 					</tr>
 				</c:forEach>
@@ -136,7 +127,7 @@
 	</c:if>
 
 
-	
+
 
 </body>
 </html>

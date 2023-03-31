@@ -30,7 +30,7 @@ public class LibererServelet extends HttpServlet {
 
 	private UtilisateurBusiness utilisateurBusiness;
 	private LivreBusiness livreBusiness;
-    private GenreBusiness genreBusiness;
+	private GenreBusiness genreBusiness;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -39,8 +39,8 @@ public class LibererServelet extends HttpServlet {
 	public void init() throws ServletException {
 		this.utilisateurBusiness = new UtilisateurBusinessImpl();
 		this.livreBusiness = new LivreBusinessImpl();
-        this.genreBusiness = new GenreBusinessImpl();
-		
+		this.genreBusiness = new GenreBusinessImpl();
+
 	}
 
 	/**
@@ -49,7 +49,6 @@ public class LibererServelet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	    
 
 	}
 
@@ -59,37 +58,40 @@ public class LibererServelet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-	    HttpSession session = request.getSession();
-	    UtilisateurBean utilisateur = (UtilisateurBean) session.getAttribute("UTILISATEUR");
-	  
-	       Integer IdLivre = Integer.parseInt(request.getParameter("bookId"));
-	        LivreBean freedBook = this.livreBusiness.getLivre(IdLivre);
-	        
-	        if(!freedBook.getDateEmprunt().equals(null))
-	        {
-	            freedBook.setDateEmprunt(null);
-	        }
-	        
-	        if(!freedBook.getDateFinEmprunt().equals(null))
-	        {
-	            freedBook.setDateFinEmprunt(null);
-	        }
-	        
-	        freedBook.setLibre(true);
-	        freedBook.setUtilisateur(null);
-	        
-	        this.livreBusiness.updateLivre(freedBook);
-	        utilisateur.getListLivres().remove(freedBook);
-	        session.removeAttribute("UTILISATEUR");
 
-	        List<LivreBean> ListLivresNonLibre = this.livreBusiness.getLivreListNotLibre();
+		HttpSession session = request.getSession();
+		UtilisateurBean utilisateur = (UtilisateurBean) session.getAttribute("UTILISATEUR");
 
+		Integer IdLivre = Integer.parseInt(request.getParameter("rendreBookId"));
+		LivreBean freedBook = this.livreBusiness.getLivre(IdLivre);
+		UtilisateurBean userOfBook = freedBook.getUtilisateur();
+		System.out.println("avant :"+userOfBook.getListLivres());
+		userOfBook.getListLivres().remove(freedBook);
+		System.out.println("apres :"+userOfBook.getListLivres());
 
-	        request.setAttribute("LIST_EMPRUNT", ListLivresNonLibre); 
-	       session.setAttribute("UTILISATEUR", utilisateur);
-	       
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
-	        dispatcher.forward(request, response);
+		if (!freedBook.getDateEmprunt().equals(null)) {
+			freedBook.setDateEmprunt(null);
+		}
+
+		if (!freedBook.getDateFinEmprunt().equals(null)) {
+			freedBook.setDateFinEmprunt(null);
+		}
+
+		freedBook.setLibre(true);
+		freedBook.setUtilisateur(null);
+
+		this.livreBusiness.updateLivre(freedBook);
+		// utilisateur.getListLivres().remove(freedBook);
+		List<LivreBean> ListLivres = this.livreBusiness.getLivreList();
+		List<GenreBean> ListGenres = this.genreBusiness.getGenreList();
+		for (LivreBean livre : ListLivres) {
+			System.out.println(livre.getTitre()+"is libre: " + livre.getLibre());
+		}
+
+		request.setAttribute("LIST_GENRES", ListGenres);
+		request.setAttribute("LIST_LIVRES", ListLivres);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+		dispatcher.forward(request, response);
 	}
 }
