@@ -31,6 +31,7 @@
 								<th>Genre</th>
 								<th>Date emprunt</th>
 								<th>Date fin emprunt</th>
+								<th>Disponibilité</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -43,6 +44,7 @@
 									<td>${book.genre.nom}</td>
 									<td>${book.dateEmprunt}</td>
 									<td>${book.dateFinEmprunt}</td>
+									<td>${book.libre}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -53,11 +55,34 @@
 				</c:otherwise>
 			</c:choose>
 			<%-- <c:out value="${fn:length(sessionScope.UTILISATEUR.listLivres)}"/> --%>
-			<form action="logout" method="post">
+			<form action="deconnecter" method="get">
 				<input type="submit" value="Se déconnecter">
 			</form>
 		</c:otherwise>
 	</c:choose>
+        <c:if test="${sessionScope.UTILISATEUR.admin}">
+        <c:forEach items="${requestScope.LIST_EMPRUNT}" var="livre">
+            <tr>
+
+                <td>${livre.titre}</td>
+                <td>${livre.auteur}</td>
+                <td>${livre.genre.nom}</td>
+                <td>${livre.dateEmprunt}</td>
+                
+                <td>${livre.libre}</td>
+                <td><c:if test="${isConnected}">
+                        <form action="liberer" method="post">
+                            <input type="hidden" name="bookId" value="${livre.id}" /> <input
+                                type="submit" value="Liberer" />
+                        </form>
+
+                    </c:if></td>
+
+            </tr>
+            <br>
+        </c:forEach>
+
+    </c:if>
 	<form action="home" method="get">
 		<label for="title">Titre:</label> <input type="text" id="title"
 			name="title" value="${title != null ? title : ''}"> <br>
@@ -98,6 +123,7 @@
 									<input type="hidden" name="bookId" value="${book.id}" /> <input
 										type="submit" value="Réserver" />
 								</form>
+
 							</c:if></td>
 					</tr>
 				</c:forEach>
@@ -108,6 +134,10 @@
 	<c:if test="${empty LIST_LIVRES}">
 		<p>Aucun résultat trouvé.</p>
 	</c:if>
+
+
+	
+
 </body>
 </html>
 

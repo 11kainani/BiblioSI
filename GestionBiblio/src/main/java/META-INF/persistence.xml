@@ -5,8 +5,5 @@
 		<class>fr.univtours.polytech.gestionbiblio.model.GenreBean</class>
 		<class>fr.univtours.polytech.gestionbiblio.model.LivreBean</class>
 		<class>fr.univtours.polytech.gestionbiblio.model.UtilisateurBean</class>
-		<properties>
-			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-		</properties>
 	</persistence-unit>
 </persistence>

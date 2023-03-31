@@ -5,6 +5,7 @@ import java.util.List;
 import fr.univtours.polytech.gestionbiblio.dao.LivreDAO;
 import fr.univtours.polytech.gestionbiblio.dao.LivreDAOImplJPA;
 import fr.univtours.polytech.gestionbiblio.model.LivreBean;
+import fr.univtours.polytech.gestionbiblio.model.UtilisateurBean;
 
 public class LivreBusinessImpl implements LivreBusiness {
 
@@ -39,5 +40,16 @@ public class LivreBusinessImpl implements LivreBusiness {
 		dao.updateLivre(livre);
 
 	}
+
+    @Override
+    public List<LivreBean> getLivreListNotLibre() {
+           return dao.getLivreListNotLibre();
+       
+    }
+
+    @Override
+    public List<LivreBean> getListByUser(UtilisateurBean user) {
+        return dao.getListByUser(user);
+    }
 
 }

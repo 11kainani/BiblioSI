@@ -14,5 +14,6 @@
         <input type="password" id="password" name="password" required><br><br>
         <input type="submit" value="Se connecter">
     </form>
+    <form action="signup" method="get"><input type="submit" value="Créer un compte"></form>
 </body>
 </html>

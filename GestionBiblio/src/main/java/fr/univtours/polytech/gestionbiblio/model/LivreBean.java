@@ -17,94 +17,94 @@ import javax.persistence.Table;
 @Table(name = "LIVRE")
 public class LivreBean implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3373362418869410073L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -3373362418869410073L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	private String auteur = "";
-	private String titre = "";
-	private boolean libre;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String auteur = "";
+    private String titre = "";
+    private boolean libre;
 
-	@Column(columnDefinition = "DATE")
-	private LocalDate dateEmprunt;
-	
-	@Column(columnDefinition = "DATE")
-	private LocalDate dateFinEmprunt;
+    @Column(columnDefinition = "DATE")
+    private LocalDate dateEmprunt;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "IdGenre")
-	private GenreBean genre;
+    @Column(columnDefinition = "DATE")
+    private LocalDate dateFinEmprunt;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "Identifiant")
-	private UtilisateurBean utilisateur;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IdGenre")
+    private GenreBean genre;
 
-	public GenreBean getGenre() {
-		return genre;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Identifiant")
+    private UtilisateurBean utilisateur;
 
-	public void setGenre(GenreBean genre) {
-		this.genre = genre;
-	}
+    public GenreBean getGenre() {
+        return genre;
+    }
 
-	public UtilisateurBean getUtilisateur() {
-		return utilisateur;
-	}
+    public void setGenre(GenreBean genre) {
+        this.genre = genre;
+    }
 
-	public void setUtilisateur(UtilisateurBean utilisateur) {
-		this.utilisateur = utilisateur;
-	}
+    public UtilisateurBean getUtilisateur() {
+        return utilisateur;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public void setUtilisateur(UtilisateurBean utilisateur) {
+        this.utilisateur = utilisateur;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getAuteur() {
-		return auteur;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setAuteur(String auteur) {
-		this.auteur = auteur;
-	}
+    public String getAuteur() {
+        return auteur;
+    }
 
-	public String getTitre() {
-		return titre;
-	}
+    public void setAuteur(String auteur) {
+        this.auteur = auteur;
+    }
 
-	public void setTitre(String titre) {
-		this.titre = titre;
-	}
+    public String getTitre() {
+        return titre;
+    }
 
-	public boolean isLibre() {
-		return libre;
-	}
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
 
-	public void setLibre(boolean libre) {
-		this.libre = libre;
-	}
+    public boolean getLibre() {
+        return libre;
+    }
 
-	public LocalDate getDateEmprunt() {
-		return dateEmprunt;
-	}
+    public void setLibre(boolean libre) {
+        this.libre = libre;
+    }
 
-	public void setDateEmprunt(LocalDate dateEmprunt) {
-		this.dateEmprunt = dateEmprunt;
-	}
+    public LocalDate getDateEmprunt() {
+        return dateEmprunt;
+    }
 
-	public LocalDate getDateFinEmprunt() {
-		return dateFinEmprunt;
-	}
+    public void setDateEmprunt(LocalDate dateEmprunt) {
+        this.dateEmprunt = dateEmprunt;
+    }
 
-	public void setDateFinEmprunt(LocalDate dateFinEmprunt) {
-		this.dateFinEmprunt = dateFinEmprunt;
-	}
+    public LocalDate getDateFinEmprunt() {
+        return dateFinEmprunt;
+    }
+
+    public void setDateFinEmprunt(LocalDate dateFinEmprunt) {
+        this.dateFinEmprunt = dateFinEmprunt;
+    }
 
 }
